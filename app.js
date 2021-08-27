@@ -6,7 +6,7 @@ function reverseStr(str) {
   return str.split("").reverse().join("");
 }
 
-function isPallindrome(str) {
+function isPalindrome(str) {
   return str === reverseStr(str);
 }
 
@@ -36,11 +36,10 @@ function getAllDateFormats(date) {
   return [ddmmyyyy, mmddyyyy, yyyymmdd, ddmmyy, mmddyy, yymmdd];
 }
 
-function checkAllDateFormatsForPallindrome(date) {
+function checkAllDateFormatsForPalindrome(date) {
   const dateArray = getAllDateFormats(date);
 
-  const pallindromes = dateArray.filter((date) => isPallindrome(date));
-  return pallindromes.length;
+  return dateArray.some((date) => isPalindrome(date));
 }
 
 function isLeapYear(year) {
@@ -78,7 +77,7 @@ function getNextPalindromeDate(date) {
 
   while (true) {
     counter++;
-    if (checkAllDateFormatsForPallindrome(nextDate)) break;
+    if (checkAllDateFormatsForPalindrome(nextDate)) break;
 
     nextDate = getNextDate(nextDate);
   }
@@ -110,13 +109,13 @@ function getPreviousDate(date) {
   return { day, month, year };
 }
 
-function getPreviousPallindrome(date) {
+function getPreviousPalindrome(date) {
   let counter = 0;
   let previousDate = getPreviousDate(date);
 
   while (true) {
     counter++;
-    if (checkAllDateFormatsForPallindrome(previousDate)) break;
+    if (checkAllDateFormatsForPalindrome(previousDate)) break;
 
     previousDate = getPreviousDate(previousDate);
   }
@@ -135,20 +134,20 @@ function handleClick() {
 
     const date = { day, month, year };
 
-    if (checkAllDateFormatsForPallindrome(date)) {
-      output.innerHTML = `Yay! Your birthday is a pallindrome 🚀`;
+    if (checkAllDateFormatsForPalindrome(date)) {
+      output.innerHTML = `Yay! Your birthday is a palindrome 🚀`;
     } else {
-      const [next, nextPallindrome] = getNextPalindromeDate(date);
-      const [previous, previousPallindrome] = getPreviousPallindrome(date);
+      const [next, nextPalindrome] = getNextPalindromeDate(date);
+      const [previous, previousPalindrome] = getPreviousPalindrome(date);
 
-      const nextPallindromeDate = `${nextPallindrome.day}-${nextPallindrome.month}-${nextPallindrome.year}`;
-      const previousPallindromeDate = `${previousPallindrome.day}-${previousPallindrome.month}-${previousPallindrome.year}`;
+      const nextPalindromeDate = `${nextPalindrome.day}-${nextPalindrome.month}-${nextPalindrome.year}`;
+      const previousPalindromeDate = `${previousPalindrome.day}-${previousPalindrome.month}-${previousPalindrome.year}`;
 
       if (next < previous) {
-        output.innerHTML = `The next pallindrome is on ${nextPallindromeDate} <br>
+        output.innerHTML = `The next palindrome is on ${nextPalindromeDate} <br>
         You missed it by ${next} ${next === 1 ? "day" : "days"} 😞`;
       } else {
-        output.innerHTML = `The previous pallindrome was on ${previousPallindromeDate} <br> 
+        output.innerHTML = `The previous palindrome was on ${previousPalindromeDate} <br> 
         You missed it by ${previous} ${previous === 1 ? "day" : "days"} 😞`;
       }
     }
